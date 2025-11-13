@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guess What?!</title>
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        overflow: visible;
+    }
+
+    body {
+        background: linear-gradient(135deg, pink, red, pink, red);
+        background-size: 400% 400%;
+        animation: gradientSlide 15s ease infinite;
+        transition: background 0.8s;
+    }
+
+    @keyframes gradientSlide {
+        0% { background-position: 0% 50%; }
+        25% { background-position: 50% 100%; }
+        50% { background-position: 100% 50%; }
+        75% { background-position: 50% 0%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    .toggled-gradient {
+        background: linear-gradient(135deg, red, pink, red, pink);
+        background-size: 400% 400%;
+        animation: gradientSlide 15s ease infinite;
+    }
+
+    button {
+        padding: 20px 50px;
+        font-size: 2rem;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        background: rgba(255, 255, 255, 0.25);
+        color: white;
+        text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
+        transition: transform 0.1s;
+        z-index: 1;
+        overflow: visible;
+        max-width: 90%;
+        display: inline-block;
+    }
+
+    button:hover {
+        transform: scale(1.05);
+    }
+
+    /* Heartbeat animation */
+    @keyframes heartbeat {
+        0%, 100% { transform: scale(1); }
+        25% { transform: scale(1.2); }
+        50% { transform: scale(1.3); }
+        75% { transform: scale(1.2); }
+    }
+
+    .heartbeat {
+        animation: heartbeat 1s infinite;
+    }
+
+    /* Blue gradient text with shimmer */
+    .blue-gradient {
+        background: linear-gradient(270deg, #00008B, #00BFFF, #00008B);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-fill-color: transparent;
+        animation: shimmer 3s ease-in-out infinite, heartbeat 1s infinite; /* both animations together */
+    }
+
+    @keyframes shimmer {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    /* Small subtitle under button */
+    .subtitle {
+        font-size: 1.2rem;
+        color: white;
+        text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+        margin-top: 10px;
+        transition: opacity 0.3s;
+    }
+
+    .hidden {
+        opacity: 0;
+        height: 0;
+        margin: 0;
+        pointer-events: none;
+    }
+
+</style>
+</head>
+<body>
+<button id="guessButton">Guess What?!</button>
+<div id="subtitle" class="subtitle">(Tap Me)</div>
+
+<script>
+    const button = document.getElementById('guessButton');
+    const subtitle = document.getElementById('subtitle');
+    let toggled = false;
+
+    button.addEventListener('click', () => {
+        toggled = !toggled;
+
+        if (toggled) {
+            document.body.classList.add('toggled-gradient');
+            button.textContent = 'I LOVE Tilly❤';
+            button.classList.add('blue-gradient');
+            subtitle.classList.add('hidden');
+        } else {
+            document.body.classList.remove('toggled-gradient');
+            button.textContent = 'Guess What?!';
+            button.classList.remove('blue-gradient');
+            subtitle.classList.remove('hidden');
+        }
+    });
+</script>
+</body>
+</html>
